@@ -12,6 +12,11 @@ app.get("/musicians", async (req, res) => {
   res.json(allMus);
 });
 
+app.get("/musicians/1", async (req, res) => {
+  const allMus = await Musician.findAll();
+  res.json(allMus[0]);
+});
+
 app.get("/bands", async (req, res) => {
   const allBan = await Band.findAll();
   res.json(allBan);
