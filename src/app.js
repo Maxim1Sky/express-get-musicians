@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const { Musician } = require("../models/index");
+const { Band, Musician } = require("../models/index");
 const { db } = require("../db/connection");
 
 const port = 3000;
@@ -10,6 +10,11 @@ const port = 3000;
 app.get("/musicians", async (req, res) => {
   const allMus = await Musician.findAll();
   res.json(allMus);
+});
+
+app.get("/bands", async (req, res) => {
+  const allBan = await Band.findAll();
+  res.json(allBan);
 });
 
 module.exports = app;
