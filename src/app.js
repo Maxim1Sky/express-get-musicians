@@ -14,9 +14,14 @@ app.get("/musicians", async (req, res) => {
   res.json(allMus);
 });
 
-app.get("/musicians/1", async (req, res) => {
-  const allMus = await Musician.findAll();
-  res.json(allMus[0]);
+app.get("/musicians/:id", async (req, res) => {
+  const index = req.params.id;
+  const theMusician = await Musician.findByPk(index);
+  if (theMusician !== null) {
+    res.json(theMusician);
+  } else {
+    res.status(404).send("Musician not found");
+  }
 });
 
 app.get("/bands", async (req, res) => {
