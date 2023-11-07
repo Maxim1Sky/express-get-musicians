@@ -5,6 +5,8 @@ const { db } = require("../db/connection");
 
 const port = 3000;
 
+app.use(express.json()); // makes sure that we'll receive json data only (i'm not sure, idk how it works)
+
 //TODO: Create a GET /musicians route to return all musicians
 
 app.get("/musicians", async (req, res) => {
