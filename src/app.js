@@ -6,6 +6,8 @@ const { db } = require("../db/connection");
 const port = 3000;
 
 app.use(express.json()); // makes sure that we'll receive json data only (i'm not sure, idk how it works)
+app.use(express.urlencoded({ extended: true })); //so that we can parse the request body with urlencoded values
+// I honestly don't know why you need this line ^
 
 //TODO: Create a GET /musicians route to return all musicians
 
@@ -21,6 +23,27 @@ app.get("/musicians/:id", async (req, res) => {
     res.json(theMusician);
   } else {
     res.status(404).send("Musician not found");
+  }
+});
+
+app.post("/musicians", async (req, res) => {
+  const theMusician = req.body;
+  const theRes = await Musician.create(theMusician);
+
+  res.json(theRes);
+});
+
+app.put("/musicians/:id", async (req, res) => {
+  const theUpdate = req.body;
+  const theId = req.params.id;
+
+  // returns [1] if a record was found
+  const theRes = await Musician.update(req.body, { where: { id: theId } });
+
+  if (theRes[0] === 1) {
+    res.send("Successfully updated the record");
+  } else {
+    res.status(404).send("Could not find the record");
   }
 });
 
