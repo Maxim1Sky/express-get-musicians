@@ -47,6 +47,23 @@ app.put("/musicians/:id", async (req, res) => {
   }
 });
 
+app.delete("/musicians/:id", async (req, res) => {
+  const theId = req.params.id;
+  const theRes = await Musician.destroy({ where: { id: theId } });
+
+  if (theRes === 0) {
+    res.status(404).send("No record found");
+  } else {
+    res.send(`Successfully deleted ${theRes} record(s)`);
+  }
+
+  // if (theRes[0] === 1) {
+  //   res.send("Successfully removed the record");
+  // } else {
+  //   res.status(404).send("Could not find the record");
+  // }
+});
+
 app.get("/bands", async (req, res) => {
   const allBan = await Band.findAll();
   res.json(allBan);
