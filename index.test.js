@@ -1,13 +1,18 @@
 // install dependencies
-const { execSync } = require("child_process");
-execSync("npm install");
-execSync("npm run seed");
+// const { execSync } = require("child_process");
+// execSync("npm install");
+// execSync("npm run seed");
 
 const request = require("supertest");
 const { db } = require("./db/connection");
-const { Musician } = require("./models/index");
+const { Musician, Band } = require("./models/index");
 const app = require("./src/app");
 const seedMusician = require("./seedData");
+const syncSeed = require("./seed");
+
+// beforeAll(async () => {
+//   await syncSeed();
+// });
 
 describe("./musicians endpoint", () => {
   // Write your tests here
@@ -29,5 +34,23 @@ describe("./musicians endpoint", () => {
 
     expect(response.status).toBe(404);
     expect(response.text).toEqual("Musician not found");
+  });
+
+  it("Should return an error if field(s) are empty", async () => {
+    const theRes = await request(app)
+      .post("/musicians")
+      .send({ name: "Only name" });
+
+    const expectedError = {
+      error: [
+        {
+          type: "field",
+          msg: "Invalid value",
+          path: "instrument",
+          location: "body",
+        },
+      ],
+    };
+    expect(theRes.body).toEqual(expectedError);
   });
 });
