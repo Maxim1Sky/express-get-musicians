@@ -8,4 +8,11 @@ router.get("/", async (req, res) => {
   res.json(bandsNMusic);
 });
 
+router.get("/:id", async (req, res) => {
+  const theId = req.params.id;
+  const theBand = await Band.findByPk(theId, { include: Musician });
+
+  res.json(theBand);
+});
+
 module.exports = router;
