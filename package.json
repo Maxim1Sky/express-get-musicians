@@ -4,7 +4,7 @@
   "description": "A Sequelize DB for bands to organize their songs and musicians",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "seed": "node seed.js",
     "start": "node server.js",
     "start-dev": "nodemon server.js"
@@ -22,9 +22,10 @@
   "dependencies": {
     "express": "^4.17.3",
     "express-validator": "^7.0.1",
-    "jest": "27.5.1",
+    "jest": "^27.5.1",
     "sequelize": "^6.34.0",
-    "sqlite3": "^5.0.11"
+    "sqlite3": "^5.0.11",
+    "test": "^3.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15",
