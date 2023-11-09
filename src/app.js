@@ -3,6 +3,7 @@ const app = express();
 const { Band, Musician } = require("../models/index");
 const { db } = require("../db/connection");
 const musiciansRouter = require("../routes/musicians");
+const bandsRouter = require("../routes/bands");
 
 const port = 3000;
 
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: true })); //so that we can parse the requ
 // I honestly don't know why you need this line ^
 
 app.use("/musicians", musiciansRouter);
+app.use("/bands", bandsRouter);
 
 //TODO: Create a GET /musicians route to return all musicians
 
