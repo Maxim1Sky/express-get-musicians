@@ -8,6 +8,6 @@ const syncSeed = async () => {
   seedBand.map((band) => Band.create(band));
 };
 
-//syncSeed();
+syncSeed();
 
 module.exports = syncSeed;
